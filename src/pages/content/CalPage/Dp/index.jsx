@@ -69,7 +69,7 @@ export function Dp() {
 
   return (
     <Fragment>
-      <div className="content2">
+      <div className="content2" id="DP">
         <div className="top-table">
           <div className="t-square"></div>
           <div className="t-name">DP</div>

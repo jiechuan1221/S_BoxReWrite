@@ -81,6 +81,7 @@
         height: 100%;
         margin-left: 20px;
         color: $textColor;
+        cursor: pointer;
         letter-spacing: 1px;
         @include flexBox(center, center);
         a {
@@ -109,11 +110,11 @@
         color: $textColor;
         letter-spacing: 1px;
       }
-      .item:hover{
-         color: $mainColor;
-         cursor: pointer;
-         background-color: rgba(66, 200, 238, 0.9);
-         border-radius: 4px;
+      .item:hover {
+        color: $mainColor;
+        cursor: pointer;
+        background-color: rgba(66, 200, 238, 0.9);
+        border-radius: 4px;
       }
     }
   }
@@ -189,12 +190,12 @@
           .scan-import2 {
             width: 45%;
           }
-          .scan-import3{
+          .scan-import3 {
             margin-left: 20px;
           }
         }
-        .cle-left{
-          @include flexBox(flex-start,center);
+        .cle-left {
+          @include flexBox(flex-start, center);
           margin-left: 29px;
         }
       }

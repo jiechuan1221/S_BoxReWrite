@@ -63,7 +63,7 @@ export function Lp(props) {
 
   return (
     <Fragment>
-      <div className="content3">
+      <div className="content3" id="LP">
         <div className="top-table">
           <div className="t-square"></div>
           <div className="t-name">LP</div>

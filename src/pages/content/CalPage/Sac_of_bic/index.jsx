@@ -63,7 +63,7 @@ export function SOB() {
 
   return (
     <Fragment>
-      <div className="content6">
+      <div className="content6" id="BIC-SAC">
         <div className="top-table">
           <div className="t-square"></div>
           <div className="t-name">BIC-SAC</div>

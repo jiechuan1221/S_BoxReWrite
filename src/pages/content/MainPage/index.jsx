@@ -14,7 +14,14 @@ import { Nonlinearity, Sac, Bic, SOB, Lp, Dp } from "../CalPage";
 import { btnClickExport } from "../../../utils/downLoadFile";
 import { downModuleTxt } from "../../../utils/downModuleTxt";
 
-const nvgName = ["Nonlinearity", "SAC", "BIC-Nonlinearity", "BIC", "DP", "LP"];
+const nvgName = [
+  "Nonlinearity",
+  "SAC",
+  "BIC-Nonlinearity",
+  "BIC-SAC",
+  "DP",
+  "LP",
+];
 
 export default function UploadAndShow() {
   const [File, setFile] = useState(false);
@@ -87,17 +94,6 @@ export default function UploadAndShow() {
     },
   };
 
-  // // 用于单次计算按钮
-  // const Calculate = () => {
-  //   if (!fileData) {
-  //     message.warn(
-  //       "You currently do not have any files that can be calculated"
-  //     );
-  //     return;
-  //   }
-
-  // };
-
   // 用于控制用户退出登录的函数
   const forExit = () => {
     httpUtill.checkLogout();
@@ -114,16 +110,12 @@ export default function UploadAndShow() {
     if (!ele || isComming) {
       return;
     }
-    const documentclientHeight =
-      document.getElementById("content").clientHeight; //元素顶端到可见区域(网页）顶端的距离
+    const documentclientHeight = document.getElementById("ctn").clientHeight; //元素顶端到可见区域(网页）顶端的距离
     const htmlElementclientTop = document
       .getElementById("LpItem")
       .getBoundingClientRect().top; //网页指定元素进入可视区域
-    console.log(documentclientHeight);
-    console.log(htmlElementclientTop);
     if (documentclientHeight >= htmlElementclientTop - 60) {
       //TODo执行你要做的操作
-      console.log(isComming);
       message.loading(
         "The Lp Component is a little bit large, please wait a minute."
       );
@@ -132,6 +124,14 @@ export default function UploadAndShow() {
     }
   };
 
+  // 去到对应位置
+  const GoRightWay = (name) => {
+    // 跳转到第一个详情页
+    const anchorElement = document.getElementById(name);
+    if (anchorElement) {
+      anchorElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   // 如果未登录跳转至登录界面
   if (!cookies.load("token")) {
     return <Navigate to="/Login" />;
@@ -143,7 +143,12 @@ export default function UploadAndShow() {
         {/* 展示名称，跳转登录和退出登录 */}
         <div className="header">
           <div className="h-left">
-            <div className="showName">S-Box Performance Analysis</div>
+            <div
+              className="showName"
+              onClick={GoRightWay.bind(null, "content")}
+            >
+              S-Box Performance Analysis
+            </div>
             <div className="Exit">
               <div className="login">
                 <Link to="/Login">Login</Link>
@@ -157,18 +162,23 @@ export default function UploadAndShow() {
             </div>
           </div>
           <div className="h-right">
-            <div className="item">Nonlinearity</div>
-            <div className="item">SAC</div>
-            <div className="item">BIC-Nonlinearity</div>
-            <div className="item">BIC-SAC</div>
-            <div className="item">DP</div>
-            <div className="item">LP</div>
+            {nvgName.map((item) => {
+              return (
+                <div
+                  className="item"
+                  key={item}
+                  onClick={GoRightWay.bind(null, item)}
+                >
+                  {item}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        <div className="content" id="content" onScroll={scroll}>
+        <div className="content" id="ctn" onScroll={scroll}>
           {/* 控件和标题 */}
-          <div className="control">
+          <div className="control" id="content">
             <div className="title"></div>
             <div className="controlElement">
               <div className="cle-left">

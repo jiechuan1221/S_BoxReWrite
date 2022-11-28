@@ -16,7 +16,7 @@ export function Bic() {
   useEffect(() => {
     const sesseionBic = JSON.parse(sessionStorage.getItem("mainPage_fileData"));
     if (sesseionBic) {
-      setBic(sesseionBic.bic)
+      setBic(sesseionBic.bic);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -95,10 +95,10 @@ export function Bic() {
 
   return (
     <Fragment>
-      <div className="content1">
+      <div className="content1" id="BIC-Nonlinearity">
         <div className="top-table">
           <div className="t-square"></div>
-          <div className="t-name">BIC</div>
+          <div className="t-name">BIC-Nonlinearity</div>
         </div>
         <div className="bottom-table">
           {/* 左边展示具体数据表格 */}
