@@ -1,78 +1,116 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { List, Button, Popconfirm, message } from "antd";
 import { DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 
 import httpUtill from "../../../utils/httpUtil";
 
 export default function FileList(props) {
-  const setResarray = props.setResArray;
+  const setResArray = props.setResArray;
+  const setDownCal = props.setDownCal;
+  const setIsComming = props.setIsComming;
   const [totalPage, setTotalPage] = useState(5);
   const [fileData, setFileData] = useState(null);
+  const [calDataStatus, setCalDataStatus] = useState(false);
+  const [curPage, setCurPage] = useState(1);
   // 获取缓存在本地的文件列表数据
-  // const [localRecords, setLocalRecords] = useState(
-  //   JSON.parse(localStorage.getItem("fileList_records"))
-  // );
   const time = props.time;
 
   // 用于获取文件列表第一页
   useEffect(() => {
-    // console.log(localStorage.getItem("fileList_records"));
-    // console.log(localRecords);
-    httpUtill.getFileList(1, 5).then((res) => {
+    const page = parseInt(localStorage.getItem("fileList_pageId"));
+    if (page) {
+      setCurPage(page);
+    }
+    // 如果当前有进行计算的文件，则保留其文件内数据，并且展示出来
+    const resArray = sessionStorage.getItem("mainPage_resArray");
+    if (resArray) {
+      const data = JSON.parse(resArray);
+      setResArray(data);
+    }
+    const pageId = localStorage.getItem("fileList_pageId") || 1;
+    httpUtill.getFileList(pageId, 5).then((res) => {
       setTotalPage(res.data.total);
-      // 将获取到的数据缓存到本地
-      // const records = JSON.stringify(res.data.records);
-      // localStorage.setItem("fileList_records", [...records]);
       setFileData(res.data.records);
     });
-  }, []);
+  }, [time]);
 
   // 获取指定页的文件
-  const getCertentPage = (id) => {
-    console.log(localStorage.getItem("fileList_records"));
-    message.loading(
-      "Loading started! The data is large, please wait a minute ~"
-    );
-    httpUtill.getFileList(id, 5).then((res) => {
+  const getCurrentPage = (page) => {
+    setFileData(null);
+    localStorage.setItem("fileList_pageId", page);
+    setCurPage(page);
+    httpUtill.getFileList(page, 5).then((res) => {
       setTotalPage(res.data.total);
-      // const records = JSON.stringify(res.data.records);
-      // // 添加进本地的数据
-      // localStorage.setItem("fileList_records", [
-      //   ...localStorage.getItem("fileList_records"),
-      //   ...records,
-      // ]);
       setFileData(res.data.records);
     });
   };
-
   // 删除指定的文件
   const onConfirm = (item) => {
-    const destoryLoading = message.loading("Deleting, please wait ~");
+    const pageId = localStorage.getItem("fileList_pageId");
     httpUtill.deleteSingleFileData(item.id).then((res) => {
       if (res.data) {
         httpUtill
-          .getFileList(1, 5)
+          .getFileList(pageId, 5)
           .then((res) => {
             setFileData(res.data.records);
+            setTotalPage(res.data.total);
+            // 如果删除的是本次列表的最后一条数据
+            if (res.data.records.length === 0) {
+              localStorage.setItem("fileList_pageId", pageId - 1);
+              httpUtill.getFileList(pageId - 1, 5).then((res) => {
+                setFileData(res.data.records);
+              });
+            }
           })
           .finally(() => {
-            destoryLoading();
             message.success("Success to delete the file ~");
           });
       } else {
-        destoryLoading();
         message.error(
           "The file does not exist or has been deleted, please refresh to check !"
         );
       }
     });
   };
-
-  // 用于更改全局变量mainPage_fileData
+  // 用于更改全局变量mainPage_fileData, 文件的计算结果保存
   const sendFileData = (item) => {
-    const data = JSON.stringify(item.singleTest);
-    sessionStorage.setItem("mainPage_fileData", data);
+    // 无论计算的是不是正在计算的文件，跳转到第一个详情页
+    const anchorElement = document.getElementById("detail");
+    if (anchorElement) {
+      anchorElement.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // 如果进行新的计算的文件和上一次计算的文件相同，则直接使用之前的数据
+    if (item.id === parseInt(sessionStorage.getItem("mainPage_listId"))) {
+      if (sessionStorage.getItem("mainPage_fileData") !== "null") {
+        setCalDataStatus(true);
+        return;
+      }
+    }
+    // 清零计算状态
+    setDownCal(false);
+    // 新的计算设置Lp组件未进入视图区域
+    setIsComming(false);
+    setResArray(item.data);
+    
+    // 保存获取到的这个文件本身的数据、文件的计算数据、文件的id号，用于进行特殊标识、保存文件名
+    const resData = JSON.stringify(item.data);
+    sessionStorage.setItem("mainPage_resArray", resData);
+    sessionStorage.setItem("mainPage_fileData", null);
+    sessionStorage.setItem("mainPage_listId", item.id);
+    sessionStorage.setItem("mainPage_fileName", item.name);
+
+    httpUtill
+      .getSingleFileRes(item.id)
+      .then((res) => {
+        const data = JSON.stringify(res.data.singleTest);
+        sessionStorage.setItem("mainPage_fileData", data);
+      })
+      .finally(() => {
+        setCalDataStatus(true);
+        setDownCal(true);
+      });
   };
 
   return (
@@ -86,13 +124,20 @@ export default function FileList(props) {
         loading={fileData ? false : true}
         pagination={{
           simple: true,
+          current: curPage,
           pageSize: 5,
           total: totalPage,
-          onChange: getCertentPage.bind(this),
+          onChange: getCurrentPage,
         }}
         renderItem={(item) => {
+          // 通过记录下来的id号标识正在计算的文件，并对当前文件进行标识
+          let color = "";
+          const id = sessionStorage.getItem("mainPage_listId");
+          if (parseInt(id) === item.id) {
+            color = "rgba(233, 233, 233, 0.8)";
+          }
           return (
-            <List.Item className="list-item">
+            <List.Item className="list-item" style={{ backgroundColor: color }}>
               <div className="fileName">
                 <div className="Span">{item.name}</div>
               </div>
@@ -102,18 +147,20 @@ export default function FileList(props) {
                     type="text"
                     block
                     onClick={() => {
-                      setResarray(item.data);
+                      setIsComming(false);
+                      setResArray([]);
+                      setTimeout(() => {
+                        setResArray(item.data);
+                      }, 0);
                     }}
                   >
                     show
                   </Button>
                 </div>
                 <div className="showRes">
-                  <Link to="/CalPage/Nlr">
-                    <Button type="text" onClick={sendFileData.bind(null, item)}>
-                      calculate
-                    </Button>
-                  </Link>
+                  <Button type="text" onClick={sendFileData.bind(null, item)}>
+                    calculate
+                  </Button>
                 </div>
                 <div className="delete">
                   <Popconfirm

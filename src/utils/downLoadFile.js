@@ -11,7 +11,7 @@ export const btnClickExport = (Csv) => {
         // 将字符串转ArrayBuffer
         const s2ab = (s) => {
             const buf = new ArrayBuffer(s.length);
-            const view = new Uint8Array(buf);
+            const view = new Uint8Array(buf); 
             for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
             return buf;
         }
@@ -39,7 +39,8 @@ export const btnClickExport = (Csv) => {
     const url = window.URL.createObjectURL(workbookBlob);
     const downloadLink = document.createElement('a');
     downloadLink.href = url;
-    downloadLink.download = 'Result.xlsx';
+    const fileName = sessionStorage.getItem("mainPage_fileName")
+    downloadLink.download = "Result of " + fileName.slice(0, fileName.length - 4) + ".xlsx";
     downloadLink.click();
-    window.URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url); 
 }

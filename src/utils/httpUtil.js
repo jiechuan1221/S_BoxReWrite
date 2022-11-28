@@ -24,9 +24,11 @@ export default class httpUtill {
     // 计算结果，会改变计算次数
     static getCalResult = (fileArray) => httpReq('post', '/single/caculate', fileArray)
     // 获取上传过的文件列表
-    static getFileList = (pageNum, pageSize) => httpReq('get', `/data/page?pageNum=${pageNum}&&pageSize=${pageSize}`, '')
+    static getFileList = (pageNum, pageSize) => httpReq('get', `/data/page?pageNum=${pageNum}&&pageSize=${pageSize}`)
     // 单次计算的数据返回
     static getSingleRes = (data) => httpReq('post', "/single/calculate", data, { "Content-Type": "application/json" })
     // 删除已经上传为文件数据
     static deleteSingleFileData = (id) => httpReq('delete', `/data/${id}`, '')
+    // 根据id查询对应文件计算结果
+    static getSingleFileRes = (id) => httpReq("get", `/data/${id}`, "", { "Content-Type": "application/x-www-form-urlencoded" })
 }

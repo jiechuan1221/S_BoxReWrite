@@ -40,7 +40,6 @@ export const Register = () => {
       message.warning("Please enter your email first !");
       return;
     }
-    // console.log(email);
     httpUtill.getServerCodeREG(email).then((res) => {
       if (res.data === true) {
         message.success("Send successfully !");

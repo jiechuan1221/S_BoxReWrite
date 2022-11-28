@@ -12,158 +12,168 @@
 
 // 下面展示表格以及文件列表
 .content2 {
-  background-color: rgb(253, 253, 253);
   width: 100%;
-  height: 78%;
-  @include flexBox(flex-start, center);
+  height: 850px;
+  padding: 10px 0 50px;
+  background-color: rgb(249, 249, 249);
+  @include flexBox(center, center);
+  flex-direction: column;
+  .top-table {
+    width: 96%;
+    height: 15%;
+    @include flexBox(flex-start, center);
+    .t-square {
+      width: 27px;
+      height: 27px;
+      border-radius: 5px;
+      background-color: $mainColor;
+    }
+    .t-name {
+      color: $titleColor;
+      margin-left: 30px;
+      font-size: 35px;
+    }
+  }
 
-  // 左边表格
-  .content-left {
-    width: 80%;
-    height: 100%;
-    background-color: rgb(255, 255, 255);
-    border-right: 1px solid rgba(217, 217, 217, 0.4);
-    @include flexBox(center, center);
-    flex-direction: column;
-    // 文字说明样式
-    .textExplain {
-      width: 90%;
-      min-height: 15%;
-      border-radius: 4px;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-family: "Microsoft JhengHei";
-      color: rgb(22, 122, 149);
-      background-color: rgb(252, 252, 252);
-      border: 1px solid rgb(226, 226, 226);
-    }
-    .textExplain::selection {
-      color: black;
-      background-color: rgb(91, 202, 232);
-    }
-    // 主体表格样式
-    .content-table {
-      width: 90%;
-      height: 75%;
-      margin-top: 20px;
-      border: 1px solid rgb(235, 235, 235);
-      @include flexBox();
+  .bottom-table {
+    width: 100%;
+    height: 85%;
+    margin-top: 20px;
+    @include flexBox(flex-start, center);
+    // 左边表格
+    .content-left {
+      width: 80%;
+      height: 100%;
+      @include flexBox(flex-start, center);
       flex-direction: column;
-      // 表格头部一行标签
-      .table-header {
-        width: 100%;
-        height: 5.9%;
-        @include flexBox();
-        .head-item {
-          width: 5.9%;
-          height: 100%;
-          @include itemStyle(rgb(10, 10, 35), rgb(23, 204, 204));
-          border-radius: 2px;
-        }
+      // 文字说明样式
+      .textExplain {
+        width: 90%;
+        min-height: 15%;
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-family: "Microsoft JhengHei";
+        color: rgb(22, 122, 149);
+        background-color: rgb(252, 252, 252);
+        border: 1px solid rgb(226, 226, 226);
       }
-      // 表格文件内容样式
-      .table-content {
-        width: 100%;
-        height: 94.1%;
+      .textExplain::selection {
+        color: black;
+        background-color: rgb(91, 202, 232);
+      }
+      // 主体表格样式
+      .content-table {
+        width: 90%;
+        height: 75%;
+        margin-top: 40px;
         @include flexBox();
-        // 内容中左边一列下标
-        .tab-con-index {
-          width: 5.9%;
-          height: 100%;
+        flex-direction: column;
+        // 表格头部一行标签
+        .table-header {
+          width: 100%;
+          height: 5.9%;
           @include flexBox();
-          flex-direction: column;
-          .tab-con-indexItem {
-            width: 100%;
-            height: 6.25%;
-            @include itemStyle(rgb(10, 10, 35), rgb(23, 204, 204));
+          .head-item {
+            width: 6.25%;
+            height: 100%;
+            @include itemStyle($mainColor, $textColor);
             border-radius: 2px;
           }
         }
-        //中间表格item
-        .tab-con-content {
-          width: 94.1%;
-          height: 100%;
+        // 表格文件内容样式
+        .table-content {
+          width: 100%;
+          height: 94.1%;
           @include flexBox();
-          flex-direction: column;
-          .tab-row-item {
+          //中间表格item
+          .tab-con-content {
             width: 100%;
-            height: 6.25%;
+            height: 100%;
             @include flexBox();
-            .row-item-col {
-              width: 6.25%;
-              height: 100%;
-              @include itemStyle(rgb(233, 233, 233), rgb(104, 104, 104));
-            }
-            .row-item-col::selection,
-            .row-item-col:focus {
-              color: rgb(8, 8, 8);
-              background-color: rgb(255, 225, 0);
+            flex-direction: column;
+            .tab-row-item {
+              width: 100%;
+              height: 6.25%;
+              @include flexBox();
+              .row-item-col {
+                width: 6.25%;
+                height: 100%;
+                @include itemStyle(rgb(244, 244, 244), rgb(104, 104, 104));
+              }
+              .row-item-col::selection,
+              .row-item-col:focus {
+                color: rgb(8, 8, 8);
+                background-color: rgb(255, 225, 0);
+              }
             }
           }
         }
       }
     }
-  }
-  // 右边文件结果最大最小等的展示
-  .content-right {
-    width: 20%;
-    height: 100%;
-    @include flexBox(center, center);
-    .cnt-rgt-res {
-      width: 80%;
-      height: 85%;
-      @include flexBox(center, flex-start);
-      .cnt-rgt-res-center {
-        width: 95%;
-        height: 30%;
-        background-color: rgba(246, 246, 246, 0.5);
-        border: 1px solid rgb(228, 228, 228);
-        border-radius: 5px;
-        @include flexBox();
-        flex-direction: column;
-        .head {
-          width: 100%;
-          height: 40%;
-          background-color: rgb(10, 10, 35);
-          border-top-left-radius: 3px;
-          border-top-right-radius: 3px;
-          color: rgb(73, 202, 201);
-          font-size: large;
-          @include flexBox(center, center);
-        }
-        .value {
-          width: 100%;
-          height: 87%;
-          @include flexBox(space-around);
+    // 右边文件结果最大最小等的展示
+    .content-right {
+      width: 20%;
+      height: 100%;
+      @include flexBox(flex-start, flex-start);
+      flex-direction: column;
+      // 展示结果的样式
+      .cnt-rgt-res {
+        width: 90%;
+        height: 35%;
+        @include flexBox(center, flex-start);
+        .cnt-rgt-res-center {
+          width: 95%;
+          height: 100%;
+          border: 1px solid rgb(228, 228, 228);
+          border-radius: 5px;
+          @include flexBox(flex-start, flex-start);
           flex-direction: column;
-          .top {
+          .head {
             width: 100%;
-            height: 80%;
-            @include flexBox(space-around, center);
+            height: 38%;
+            background-color: $mainColor;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            color: $textColor;
+            font-size: 20px;
+            letter-spacing: 1px;
+            font-family: "Calisto MT";
+            @include flexBox(center, center);
+          }
+          .value {
+            width: 100%;
+            height: 82%;
+            @include flexBox(space-around);
             flex-direction: column;
-            .val-item {
-              width: 90%;
-              height: 43%;
-              border: 1px solid rgb(239, 239, 239);
-              background-color: #fff;
-              @include flexBox(space-between, center);
-              .fang {
-                width: 20%;
-                height: 100%;
-                @include flexBox(center, center);
-                .center {
-                  width: 45%;
-                  height: 45%;
-                  background-color: rgb(10, 10, 35);
-                  border-radius: 4px;
+            .top {
+              width: 100%;
+              height: 80%;
+              @include flexBox(space-around, center);
+              flex-direction: column;
+              .val-item {
+                width: 90%;
+                height: 40%;
+                background-color: rgb(255, 255, 255);
+                @include flexBox(space-between, center);
+                .fang {
+                  width: 20%;
+                  height: 100%;
+                  @include flexBox(center, center);
+                  .center {
+                    width: 20px;
+                    height: 20px;
+                    background-color: $mainColor;
+                    border-radius: 4px;
+                  }
                 }
-              }
-              .val {
-                width: 80%;
-                height: 100%;
-                font-size: medium;
-                color: rgb(7, 199, 199);
-                @include flexBox(flex-start, center);
+                .val {
+                  width: 80%;
+                  height: 100%;
+                  font-size: 19px;
+                  color: $titleColor;
+                  @include flexBox(flex-start, center);
+                }
               }
             }
           }

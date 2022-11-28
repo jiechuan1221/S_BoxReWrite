@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-
-export default function RowItem() {
-  const lp = JSON.parse(sessionStorage.getItem("mainPage_fileData")).lp;
+export default function RowItem(props) {
+  const isComing = props.isComing;
+  const [lp, setLp] = useState(null);
   let key = 0;
+
+  useEffect(() => {
+    const sessionLp = JSON.parse(sessionStorage.getItem("mainPage_fileData"));
+    if (sessionLp) {
+      setLp(sessionLp.lp);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   //   生成表格具体内容
   const RowItemCol = ({ data }) => {
@@ -17,18 +25,19 @@ export default function RowItem() {
       );
     });
   };
+
   return lp ? (
     lp.map((item) => {
       key = key + 1;
       return (
-        <div className="tab-row-item" key={key}>
-          {<RowItemCol data={item} />}
+        <div className="tab-row-item" key={key} id={key}>
+          <RowItemCol data={item} />
         </div>
       );
     })
   ) : (
-    <h1 style={{ color: "rgb(23, 204, 204)", margin: "170px 500px" }}>
-      Loding...
-    </h1>
+    <div style={{ color: "rgb(23, 204, 204)", margin: "170px 200px" }}>
+      Currently there is no data can be displayed.
+    </div>
   );
 }
