@@ -8,21 +8,21 @@ export default function Login() {
   return (
     <div>
       <div className={styles["login-wrap"]}>
-        <div className={styles["login-top"]}>cipher calculate</div>
+        <div className={styles["login-top"]}>S-Box Performance Analysis</div>
         <Tabs
           className={styles["login-select-form"]}
           defaultActiveKey="1"
           centered={true}
-          tabBarGutter={80}
+          tabBarGutter={39}
           items={[
             {
-              label: `PasswordLog`,
+              label: `Log In by Password`,
               key: "1",
               children: <User />,
               className: styles["login-select-form-content"],
             },
             {
-              label: `ServerLog`,
+              label: `Log In by Verification`,
               key: "2",
               children: <ServerLog />,
               className: styles["login-select-form-content"],
@@ -35,9 +35,6 @@ export default function Login() {
             },
           ]}
         />
-        <div className={styles["login-text"]}>
-          Copyright &copy; {new Date().getFullYear()} MISLab 版权所有
-        </div>
         <BG />
       </div>
     </div>

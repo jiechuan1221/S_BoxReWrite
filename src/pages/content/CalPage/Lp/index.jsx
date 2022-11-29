@@ -72,7 +72,11 @@ export function Lp(props) {
           {/* 左边展示具体数据表格 */}
           <div className="content-left">
             <div className="textExplain">
-              1111zheg这个适用于展ffrfrf示LP页面的数据
+              The linear approximation probability (LP) is used to measure the
+              resistance of an S-box to the linear attack. It measures the
+              maximum value of the imbalance of an event by comparing the parity
+              of the inputs bits indexed by the mask Tx and the parity of the
+              output bits indexed by the mask Ty .
             </div>
             <div className="content-table">
               <div className="table-box">

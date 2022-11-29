@@ -66,7 +66,17 @@ export function Sac() {
           {/* 左边展示具体数据表格 */}
           <div className="content-left">
             <div className="textExplain">
-              1111zheg这个适用于展示Sac页面的数据
+              The strict avalanche criterion (SAC) is first introduced in [1] .
+              We call an S-box satisfies SAC if each of its output bit is
+              changed with 50% probability when only one bit of its input is
+              changed. In reality, the SAC performance of the S-box is often
+              evaluated by a dependency matrix. If all values in the dependence
+              matrix are close to 0.5, it is regarded that the S-box under study
+              satisfies SAC. The method of calculating the dependency matrix is
+              described in detail in [1] . [1] A. Webster , S.E. Tavares , On
+              the design of S-boxes, in: Conference on the Theory and
+              Application of Cryptographic Techniques, Springer, 1985, pp.
+              523–534 .
             </div>
 
             <div className="table-border">

@@ -72,7 +72,7 @@ export function SOB() {
           {/* 左边展示具体数据表格 */}
           <div className="content-left">
             <div className="textExplain">
-              1111zheg这个适用于展示SOB页面的数据
+              Bits Independence Criterion(BIC) : SAC
             </div>
             <div className="table-border">
               <div className="content-table">

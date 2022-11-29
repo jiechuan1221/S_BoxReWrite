@@ -93,7 +93,7 @@ export default function FileList(props) {
     // 新的计算设置Lp组件未进入视图区域
     setIsComming(false);
     setResArray(item.data);
-    
+
     // 保存获取到的这个文件本身的数据、文件的计算数据、文件的id号，用于进行特殊标识、保存文件名
     const resData = JSON.stringify(item.data);
     sessionStorage.setItem("mainPage_resArray", resData);
@@ -132,9 +132,15 @@ export default function FileList(props) {
         renderItem={(item) => {
           // 通过记录下来的id号标识正在计算的文件，并对当前文件进行标识
           let color = "";
+          let color1 = "";
+          let color2 = "";
+          let color3 = "";
           const id = sessionStorage.getItem("mainPage_listId");
           if (parseInt(id) === item.id) {
-            color = "rgba(233, 233, 233, 0.8)";
+            color = "rgba(66, 200, 238, 0.4)";
+            color1 = "#009d00";
+            color2 = "#0081cd";
+            color3 = "#e53500";
           }
           return (
             <List.Item className="list-item" style={{ backgroundColor: color }}>
@@ -153,13 +159,14 @@ export default function FileList(props) {
                         setResArray(item.data);
                       }, 0);
                     }}
+                    style={{ color: color3 }}
                   >
-                    show
+                    <span style={{ color: color1 }}>show</span>
                   </Button>
                 </div>
                 <div className="showRes">
                   <Button type="text" onClick={sendFileData.bind(null, item)}>
-                    calculate
+                    <span style={{ color: color2 }}>calculate</span>
                   </Button>
                 </div>
                 <div className="delete">
@@ -170,7 +177,7 @@ export default function FileList(props) {
                     icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                   >
                     <Button type="text" block>
-                      <DeleteOutlined />
+                      <DeleteOutlined style={{ color: color3 }} />
                     </Button>
                   </Popconfirm>
                 </div>

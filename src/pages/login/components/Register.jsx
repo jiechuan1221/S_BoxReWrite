@@ -111,9 +111,7 @@ export const Register = () => {
               if (!value || reg.test(value)) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                new Error("Email address is illegal !")
-              );
+              return Promise.reject(new Error("Email address is illegal !"));
             },
           }),
         ]}
@@ -137,7 +135,7 @@ export const Register = () => {
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Organization"
+          placeholder="Affiliation"
         />
       </Form.Item>
 
@@ -230,7 +228,7 @@ export const Register = () => {
             prefix={
               <SafetyCertificateOutlined className="site-form-item-icon" />
             }
-            placeholder="verificationCode"
+            placeholder="Verification Code"
           />
         </Form.Item>
         <Button
@@ -244,7 +242,7 @@ export const Register = () => {
           }}
           onClick={getEmailCode}
         >
-          getCode
+          send
         </Button>
       </div>
 
@@ -259,30 +257,6 @@ export const Register = () => {
           Register
         </Button>
       </Form.Item>
-
-      <div
-        className="marked"
-        style={{
-          width: "10  0%",
-          margin: "0 auto 0px",
-          height: 10,
-          borderBottom: "1px solid #ddd",
-          textAlign: "center",
-          marginTop: "-10px",
-        }}
-      >
-        <span
-          className="words"
-          style={{
-            background: "white",
-            paddingLeft: 8,
-            paddingRight: 8,
-            display: "inline-block",
-          }}
-        >
-          Please remember your account and password
-        </span>
-      </div>
     </Form>
   );
 };

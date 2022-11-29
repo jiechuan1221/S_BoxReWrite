@@ -78,7 +78,12 @@ export function Dp() {
           {/* 左边展示具体数据表格 */}
           <div className="content-left">
             <div className="textExplain">
-              1111zheg这个适用于展示Dp页面的数据
+              Differential uniformity is another desirable property of an S-box
+              and it is introduced to measure the resistance of an Sbox with
+              respect to differential cryptoanalysis attack. We commonly use the
+              differential approximation probability (DP) to measure the
+              input/output XOR distribution and evaluate the differential
+              uniformity of an S-box.
             </div>
             <div className="content-table">
               <div className="table-header">

@@ -100,7 +100,7 @@ export const ServerLog = () => {
               prefix={
                 <SafetyCertificateOutlined className="site-form-item-icon" />
               }
-              placeholder="verificationCode"
+              placeholder="Verification Code"
             />
           </Form.Item>
           <Button
@@ -114,7 +114,7 @@ export const ServerLog = () => {
             }}
             onClick={getEmailCode}
           >
-            getCode
+            Send
           </Button>
         </div>
 
@@ -132,7 +132,7 @@ export const ServerLog = () => {
         {/* 点击找回密码 */}
         <Form.Item>
           <Form.Item valuePropName="changePassword" noStyle>
-            <Link to="/Login/find">click here to find password &gt;</Link>
+            <Link to="/Login/find">Forgot password &gt;</Link>
           </Form.Item>
         </Form.Item>
       </Form>

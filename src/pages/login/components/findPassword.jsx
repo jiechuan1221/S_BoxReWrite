@@ -57,7 +57,7 @@ export default function FindPassword() {
         <div className="reg-center">
           {/* 标题 */}
           <div className="center-item header">
-            <span style={{ textAlign: "center", fontSize: "30px" }}>
+            <span style={{ textAlign: "center", fontSize: "32px" }} className="Span">
               F i n d &nbsp; P a s s w o r d
             </span>
           </div>
@@ -74,7 +74,7 @@ export default function FindPassword() {
                     { required: true, message: "Please input your username!" },
                   ]}
                 >
-                  <Input ref={emailRef} />
+                  <Input ref={emailRef} placeholder="email"/>
                 </Form.Item>
               </div>
             </div>
@@ -92,11 +92,11 @@ export default function FindPassword() {
                     },
                   ]}
                 >
-                  <Input />
+                  <Input placeholder="Verification Code"/>
                 </Form.Item>
               </div>
               <div className="Btn">
-                <Button onClick={getEmailCode}>get code</Button>
+                <Button onClick={getEmailCode}>&nbsp;&nbsp;&nbsp;&nbsp;send&nbsp;&nbsp;&nbsp;</Button>
               </div>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function FindPassword() {
                     { required: true, message: "Please input your password!" },
                   ]}
                 >
-                  <Input.Password />
+                  <Input.Password placeholder="Password"/>
                 </Form.Item>
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function FindPassword() {
                     }),
                   ]}
                 >
-                  <Input.Password />
+                  <Input.Password placeholder="Please confirm your password"/>
                 </Form.Item>
               </div>
             </div>
@@ -164,9 +164,9 @@ export default function FindPassword() {
           </div>
           {/* 版权信息 */}
           <div className="center-item">
-            <span style={{ fontSize: "15px", paddingBottom:"15px" }}>
+            {/* <span style={{ fontSize: "15px", paddingBottom:"15px" }}>
               Copyright &copy; {new Date().getFullYear()} MISLab 版权所有
-            </span>
+            </span> */}
           </div>
         </div>
       </Form>
