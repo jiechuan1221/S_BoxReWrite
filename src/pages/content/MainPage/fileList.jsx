@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { List, Button, Popconfirm, message } from "antd";
 import { DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 
@@ -137,15 +136,16 @@ export default function FileList(props) {
           let color3 = "";
           const id = sessionStorage.getItem("mainPage_listId");
           if (parseInt(id) === item.id) {
-            color = "rgba(66, 200, 238, 0.4)";
+            color = "rgba(243, 174, 0, 0.6)";
             color1 = "#009d00";
-            color2 = "#0081cd";
-            color3 = "#e53500";
+            color2 = "#295c82";
           }
           return (
             <List.Item className="list-item" style={{ backgroundColor: color }}>
               <div className="fileName">
-                <div className="Span">{item.name}</div>
+                <div className="Span" title={item.name}>
+                  {item.name}
+                </div>
               </div>
               <div className="file-btn">
                 <div className="showData">

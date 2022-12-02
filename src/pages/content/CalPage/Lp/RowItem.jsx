@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function RowItem(props) {
   const isComing = props.isComing;
-  const [lp, setLp] = useState(null);
+  const [lp, setLp] = useState(null); 
   let key = 0;
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function RowItem(props) {
       );
     })
   ) : (
-    <div style={{ color: "rgb(23, 204, 204)", margin: "170px 200px" }}>
+    <div style={{ color: "rgb(245, 211, 94)", margin: "190px 230px", fontSize: "26px" }}>
       Currently there is no data can be displayed.
     </div>
   );

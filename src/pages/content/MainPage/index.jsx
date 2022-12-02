@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Divider, Button, Upload, message, Spin, Space } from "antd";
 import { StarOutlined, UploadOutlined } from "@ant-design/icons";
 import cookies from "react-cookies";
@@ -13,6 +12,7 @@ import FileList from "./fileList";
 import { Nonlinearity, Sac, Bic, SOB, Lp, Dp } from "../CalPage";
 import { btnClickExport } from "../../../utils/downLoadFile";
 import { downModuleTxt } from "../../../utils/downModuleTxt";
+import logo from "../../../utils/logo.png";
 
 const nvgName = [
   "Nonlinearity",
@@ -28,6 +28,7 @@ export default function UploadAndShow() {
   const [resArray, setResArray] = useState([]);
   const [time, setTime] = useState(50);
   const [fileData, setFileData] = useState(null);
+  const [user, setUser] = useState(null);
   // 判断文件是否计算完毕
   const [downCal, setDownCal] = useState(true);
   // 判断Lp是否进入可视区域
@@ -40,6 +41,7 @@ export default function UploadAndShow() {
     httpUtill.getRegisterStatus().then((res) => {
       if (res.data) {
         setTime(res.data.times);
+        setUser(res.data.firstName + res.data.lastName);
       }
     });
   }, []);
@@ -48,7 +50,9 @@ export default function UploadAndShow() {
   const Props = {
     onChange({ file }) {
       if (file.status !== "uploading") {
-        message.success("success to add your file");
+        message.success(
+          "Success to add your file, this will take a chance to calculate."
+        );
         // 清零当前文件的数据
         setResArray([]);
         setIsComming(false);
@@ -63,35 +67,48 @@ export default function UploadAndShow() {
           sessionStorage.setItem("mainPage_resArray", resData);
           sessionStorage.setItem("mainPage_listId", null);
           sessionStorage.setItem("mainPage_fileName", "Current file");
-
           // 用于更改上传计算次数
           httpUtill.getRegisterStatus().then((res) => {
             if (res.data) {
               setTime(res.data.times);
             }
           });
-          const data = res.data;
-          message.loading(
-            "Start to get the calculate result, please wait a minute ~"
-          );
-          // 获取单次计算结果
-          httpUtill.getSingleRes({ data: data }).then((res) => {
-            const data = JSON.stringify(res.data);
-            sessionStorage.setItem("mainPage_fileData", data);
-            setFileData(res.data);
-            message.success("Successfully to get the calculate result ~");
-            // 设置计算状态为true
-            setDownCal(true);
-            // 跳转到第一个详情页
-            const anchorElement = document.getElementById("detail");
-            if (anchorElement) {
-              anchorElement.scrollIntoView({ behavior: "smooth" });
-            }
-          });
-          setFile(null);
+          setDownCal(true);
+          sessionStorage.removeItem("mainPage_fileData");
         });
       }
     },
+  };
+
+  // 点击计算单个文件结果
+  const Calculate = () => {
+    if (!File) {
+      message.warn(
+        "You currently do not have any files that can be calculated"
+      );
+      return;
+    }
+    setIsComming(false);
+    setDownCal(false);
+    const data = resArray;
+    message.loading(
+      "Start to get the calculate result, please wait a minute ~"
+    );
+    // 获取单次计算结果
+    httpUtill.getSingleRes({ data: data }).then((res) => {
+      const data = JSON.stringify(res.data);
+      sessionStorage.setItem("mainPage_fileData", data);
+      setFileData(res.data);
+      message.success("Successfully to get the calculate result ~");
+      // 设置计算状态为true
+      setDownCal(true);
+      // 跳转到第一个详情页
+      const anchorElement = document.getElementById("detail");
+      if (anchorElement) {
+        anchorElement.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+    setFile(null);
   };
 
   // 用于控制用户退出登录的函数
@@ -114,11 +131,14 @@ export default function UploadAndShow() {
     const htmlElementclientTop = document
       .getElementById("LpItem")
       .getBoundingClientRect().top; //网页指定元素进入可视区域
-    if (documentclientHeight >= htmlElementclientTop - 60) {
+    if (documentclientHeight >= htmlElementclientTop - 85) {
       //TODo执行你要做的操作
-      message.loading(
-        "The Lp Component is a little bit large, please wait a minute."
-      );
+      if (sessionStorage.getItem("mainPage_fileData")) {
+        message.loading(
+          "The Lp Component is a little bit large, please wait a minute."
+        );
+      }
+
       setIsComming(true);
       return;
     }
@@ -132,6 +152,7 @@ export default function UploadAndShow() {
       anchorElement.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   // 如果未登录跳转至登录界面
   if (!cookies.load("token")) {
     return <Navigate to="/Login" />;
@@ -147,11 +168,16 @@ export default function UploadAndShow() {
               className="showName"
               onClick={GoRightWay.bind(null, "content")}
             >
-              S-Box Performance Analysis
+              <img
+                src={logo}
+                alt="S-Box"
+                style={{ width: "50px", marginRight: "10px" }}
+              />
+              <span>S-Box Performance Analysis</span>
             </div>
             <div className="Exit">
               <div className="login">
-                <Link to="/Login">Login</Link>
+                <span>{user ? user : "welcom"}</span>
               </div>
               |
               <div className="eText">
@@ -163,6 +189,17 @@ export default function UploadAndShow() {
           </div>
           <div className="h-right">
             {nvgName.map((item) => {
+              if (item === "LP") {
+                return (
+                  <div
+                    className="item"
+                    key={item}
+                    onClick={GoRightWay.bind(null, "LpItem")}
+                  >
+                    {item}
+                  </div>
+                );
+              }
               return (
                 <div
                   className="item"
@@ -179,7 +216,20 @@ export default function UploadAndShow() {
         <div className="content" id="ctn" onScroll={scroll}>
           {/* 控件和标题 */}
           <div className="control" id="content">
-            <div className="title"></div>
+            <div className="title">
+              <span>
+                Here, we only provide the evaluation service for 8*8 S-Box.
+                Please click &nbsp;“Upload S-Box”&nbsp; button to choose your
+                S-Box, then click &nbsp;“Calculate”&nbsp; Button to get the
+                corresponding evaluation results. Please note the uploaded S-Box
+                must conform to our format. Click&nbsp;&nbsp;
+                <span onClick={downModuleTxt} className="down">
+                  HERE
+                </span>
+                &nbsp;&nbsp; to download the format template, which is an
+                example of AES S-Box.
+              </span>
+            </div>
             <div className="controlElement">
               <div className="cle-left">
                 <Upload
@@ -193,7 +243,7 @@ export default function UploadAndShow() {
                     <Button
                       icon={<StarOutlined />}
                       block
-                      className="cle-left-btn"
+                      className="cle-left-btn1"
                     >
                       Upload S-Box Sucess
                     </Button>
@@ -208,7 +258,7 @@ export default function UploadAndShow() {
                   )}
                 </Upload>
 
-                {/* 开始计算按钮
+                {/* 开始计算按钮 */}
                 <div className="scan-import2">
                   {fileData ? (
                     <Button
@@ -216,7 +266,7 @@ export default function UploadAndShow() {
                       className="cle-left-btn"
                       onClick={Calculate}
                     >
-                      Show evaluation results
+                      Calculate
                     </Button>
                   ) : (
                     <Button
@@ -224,19 +274,15 @@ export default function UploadAndShow() {
                       className="cle-left-btn"
                       onClick={Calculate}
                     >
-                      Show evaluation results
+                      Calculate
                     </Button>
                   )}
-                </div> */}
+                </div>
               </div>
 
-              {/* 右边的两个下载按钮 */}
+              {/* 右边的下载计算结果按钮 */}
               <div className="cle-right">
-                <div className="scan-import3">
-                  <Button className="cle-left-btn" onClick={downModuleTxt}>
-                    Download Module File
-                  </Button>
-                </div>
+                <div className="scan-import3"></div>
                 <div className="scan-import4">
                   <Button className="cle-left-btn" onClick={downResFile}>
                     Download Results
@@ -272,7 +318,7 @@ export default function UploadAndShow() {
                 <Bic />
                 <SOB />
                 <Dp />
-                <div id="LpItem">{isComming ? <Lp /> : ""}</div>
+                <div id="LpItem">{isComming ? <Lp /> : "&nbsp;"}</div>
               </Fragment>
             ) : (
               <div className="detail-table">
@@ -282,6 +328,23 @@ export default function UploadAndShow() {
                 </Space>
               </div>
             )}
+          </div>
+
+          {/* 底部说明文字 */}
+          <div className="true-bottom">
+            <div className="b-top">About us: </div>
+            <div className="b-bottom">
+              This is a free online tool for evaluating 8 * 8 S-Box, which is
+              designed by Dr. Yong Wang, Chongqing University of Posts and
+              Telecommunications, Chongqing, 400065, China. Some postgraduates
+              and undergraduates joined in the development of this Tool. They
+              are Mr. Peng Lei, Ms. Mingyue Wang, Mr. Cong Lu and Ms. Xingyue
+              Xu. We hope this tool can bring you convenience to research S-Box.
+              If you have any problem when using it, feel free to contact
+              me,&nbsp;
+              <span className="email">wangyong1@cqupt.edu.cn</span> , or &nbsp;
+              <span className="email">wangyong_cqupt@163.com.</span>
+            </div>
           </div>
         </div>
       </div>

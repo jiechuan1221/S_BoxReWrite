@@ -43,6 +43,8 @@ export const httpReq = (method, url, data, headerMsg) => {
               cookies.remove("token", { path: "/" })
             }
             sessionStorage.removeItem("mainPage_fileData")
+            sessionStorage.removeItem("mainPage_fileName")
+            sessionStorage.removeItem("mainPage_resArray")
             message.success(`Welcome back next time ~`)
             setTimeout(() => {
               window.location.href = '/'

@@ -90,7 +90,7 @@ export function SOB() {
             <div className="cnt-rgt-res">
               {/* 调用这个函数计算最小值，平均值和方差 */}
               <div className="cnt-rgt-res-center">
-                <div className="head">Analysis of Sac_of_bic</div>
+                <div className="head">BIC-SAC</div>
                 <div className="value">
                   <div className="top">
                     <div className="val-item">

@@ -14,7 +14,7 @@
 .content6 {
   width: 100%;
   height: 750px;
-  padding: 10px 0 50px;
+  padding: 20px 0 30px;
   background-color: rgb(255, 255, 255);
   @include flexBox(center, center);
   flex-direction: column;
@@ -23,15 +23,15 @@
     height: 15%;
     @include flexBox(flex-start, center);
     .t-square {
-      width: 27px;
-      height: 27px;
+      width: 22px;
+      height: 22px;
       border-radius: 5px;
       background-color: $mainColor;
     }
     .t-name {
       color: $titleColor;
-      margin-left: 30px;
-      font-size: 35px;
+      margin-left: 20px;
+      font-size: 28px;
     }
   }
 
@@ -55,13 +55,9 @@
         padding: 10px 20px;
         font-size: 16px;
         font-family: "Microsoft JhengHei";
-        color: rgb(22, 122, 149);
+        color: $explainColor;
         background-color: rgb(251, 251, 251);
         border: 1px solid rgb(226, 226, 226);
-      }
-      .textExplain::selection {
-        color: black;
-        background-color: rgb(91, 202, 232);
       }
       // 主体表格样式
       .table-border {
@@ -110,8 +106,8 @@
                 }
                 .detailItem::selection,
                 .detailItem:focus {
-                  color: $mainColor;
-                  background-color: rgb(255, 225, 0);
+                  color: $selectColor;
+                  background-color: $selectBgc;
                 }
               }
             }
@@ -146,8 +142,8 @@
             border-top-right-radius: 3px;
             color: $textColor;
             font-size: 20px;
-            letter-spacing: 1px;
-            font-family: "Calisto MT";
+            font-weight: 300;
+            letter-spacing: 3px;
             @include flexBox(center, center);
           }
           .value {

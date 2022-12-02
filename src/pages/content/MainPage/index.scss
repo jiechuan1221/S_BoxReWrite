@@ -65,11 +65,12 @@
   .header {
     background-color: $mainColor;
     width: 100%;
-    height: 57px;
+    height: 85px;
     min-width: 1200px;
     position: fixed;
     overflow: auto;
     z-index: 20;
+    font-size: large;
     @include flexBox();
     .h-left {
       height: 100%;
@@ -81,16 +82,29 @@
         height: 100%;
         margin-left: 20px;
         color: $textColor;
-        cursor: pointer;
         letter-spacing: 1px;
         @include flexBox(center, center);
-        a {
-          color: $textColor;
+        span {
           margin-right: 10px;
+          font-weight: 150;
         }
         .ant-btn-text {
           letter-spacing: 2px;
           color: $textColor;
+          font-size: large;
+          font-weight: 150;
+          cursor: pointer;
+          margin-top: -10px;
+        }
+      }
+      .showName {
+        font-size: 22px;
+        cursor: pointer;
+        @include flexBox(center, center);
+        // flex-direction: column;
+        font-style: italic;
+        span {
+          color: rgb(255, 179, 0);
         }
       }
       .Exit {
@@ -101,19 +115,19 @@
     .h-right {
       height: 100%;
       margin-right: 15px;
-
+      font-weight: 150;
       @include flexBox(flex-start, center);
       .item {
-        height: 70%;
+        height: 55%;
         @include flexBox(center, center);
         padding: 0 10px;
         color: $textColor;
         letter-spacing: 1px;
       }
       .item:hover {
-        color: $mainColor;
+        color: $selectColor;
         cursor: pointer;
-        background-color: rgba(66, 200, 238, 0.9);
+        background-color: $selectBgc;
         border-radius: 4px;
       }
     }
@@ -122,29 +136,40 @@
   .content {
     width: 100%;
     height: 92%;
-    margin-top: 57px;
+    margin-top: 85px;
     flex-wrap: wrap;
     overflow: auto;
     // 中间标题和控件层
     .control {
       width: 100%;
-      height: 110px;
+      height: 140px;
       @include flexBox();
       flex-direction: column;
       .title,
       .controlElement {
         width: 100%;
-        height: 64%;
+        height: 48%;
         background-color: rgb(255, 255, 255);
-        text-align: center;
-        line-height: 84.23px;
       }
       // 标题
       .title {
-        letter-spacing: 3px;
-        font-size: 30px;
+        font-size: 15px;
         color: $mainColor;
-        height: 25%;
+        height: 60%;
+        padding: 16px 65px;
+        letter-spacing: 1px;
+        @include flexBox(flex-start, flex-start);
+        .down {
+          color: $selectBgc;
+          cursor: pointer;
+          font-size: 17px;
+          margin-top: -2px;
+          text-decoration: underline;
+          font-style: italic;
+        }
+        .down:hover {
+          color: $titleColor;
+        }
       }
       // 控件
       .controlElement {
@@ -167,28 +192,35 @@
           .scan-import3,
           .scan-import4 {
             width: 42%;
-            height: 60%;
+            height: 70%;
             @include flexBox(space-around, center);
-            .cle-left-btn {
+            .cle-left-btn,
+            .cle-left-btn1 {
               width: 100%;
               height: 100%;
-              background-color: $mainColor;
-              color: $textColor;
+              color: #237d65;
+              background: rgb(243, 243, 243);
+              border: 2px solid #145a47;
               border-radius: 5px;
-              border: 1px solid rgb(244, 244, 244);
               transition: 0.8s;
               letter-spacing: 1px;
               @include flexBox(center, center);
               cursor: pointer;
             }
+            .cle-left-btn1 {
+              color: $selectBgc;
+              background: $mainColor;
+              border: 2px solid $mainColor;
+            }
             .cle-left-btn:hover {
-              color: #fff;
-              background-color: rgb(11, 190, 218);
-              border: 1px solid rgba(21, 21, 59, 0.3);
+              color: $selectColor;
+              background: $selectBgc;
+              border: 2px solid $mainColor;
             }
           }
           .scan-import2 {
             width: 45%;
+            margin-left: 15px;
           }
           .scan-import3 {
             margin-left: 20px;
@@ -203,7 +235,7 @@
     //   设置分割线样式
     .ant-divider-horizontal {
       margin: 0px;
-      background-color: rgb(245, 245, 245);
+      background-color: rgba(34, 52, 66, 0.1);
       text-align: center;
       height: 1.5px;
     }
@@ -275,8 +307,8 @@
                 }
                 .row-item-col::selection,
                 .row-item-col:focus {
-                  color: $mainColor;
-                  background-color: rgb(255, 225, 0);
+                  color: $selectColor;
+                  background-color: $selectBgc;
                 }
               }
             }
@@ -304,8 +336,8 @@
             border-top-right-radius: 3px;
           }
           .list-top {
-            font-family: "Courier New", Courier, monospace;
-            letter-spacing: 0;
+            font-weight: 100;
+            font-size: 20px;
           }
           // 中间展示已经上传的数据
           .list-show {
@@ -328,8 +360,8 @@
                   overflow: hidden;
                   white-space: nowrap; /*禁止换行*/
                   text-overflow: ellipsis; /*文本超出隐藏*/
-                  color: black;
-                  font-size: 14px;
+                  color: #1c3448;
+                  font-size: 15px;
                 }
                 .Span:hover {
                   color: rgb(110, 110, 110);
@@ -347,18 +379,18 @@
                   height: 50%;
                   @include flexBox(center, center);
                   .ant-btn > span {
-                    color: rgba(45, 202, 97, 0.7);
-                    font-size: 13px;
+                    color: #deba36;
+                    font-size: 14px;
                   }
                 }
                 .showRes {
                   .ant-btn > span {
-                    color: rgb(23, 176, 219);
+                    color: #579edf;
                   }
                 }
                 .delete {
                   .ant-btn > span {
-                    color: rgb(232, 90, 29);
+                    color: #e35b4b;
                   }
                   .ant-btn:focus-visible {
                     background-color: rgb(195, 138, 138);
@@ -407,17 +439,47 @@
     .detail-table {
       width: 100%;
       height: 500px;
-      background-color: rgb(13, 13, 39);
-      color: $titleColor;
+      background-color: rgb(16, 26, 34);
+      color: $textColor;
       font-size: 60px;
       font-family: "Courier New", Courier, monospace;
       @include flexBox(center, center);
       .icon {
         margin-left: 20px;
-        color: $titleColor;
+        color: $textColor;
       }
       .ant-spin-dot-item {
-        background-color: $titleColor;
+        background-color: $textColor;
+      }
+    }
+
+    // 最后底部说明文字
+    .true-bottom {
+      width: 100%;
+      height: 250px;
+      margin-top: 30px;
+      background-color: rgb(13, 24, 32);
+      color: $textColor;
+      @include flexBox(space-around, center);
+      flex-direction: column;
+      .b-top {
+        width: 100%;
+        height: 20%;
+        padding: 20px;
+        font-size: 25px;
+        font-weight: 100;
+        letter-spacing: 3px;
+        font-style: italic;
+      }
+      .b-bottom {
+        width: 90%;
+        height: 70%;
+        padding: 20px;
+        font-size: 17px;
+        letter-spacing: 1px;
+        .email {
+          text-decoration: underline;
+        }
       }
     }
   }

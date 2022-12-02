@@ -97,7 +97,7 @@ export function Lp(props) {
           <div className="content-right">
             <div className="cnt-rgt-res">
               <div className="cnt-rgt-res-center">
-                <div className="head">Analysis of Lp</div>
+                <div className="head">LP</div>
                 <div className="value">
                   <div className="top">
                     {/* 结果分析计算的值 */}

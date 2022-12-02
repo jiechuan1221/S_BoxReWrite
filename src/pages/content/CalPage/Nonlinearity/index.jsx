@@ -109,7 +109,7 @@ export function Nonlinearity() {
           <div className="content-right">
             <div className="cnt-rgt-res">
               <div className="cnt-rgt-res-center">
-                <div className="head">Analysis of Nonlinearity</div>
+                <div className="head"> Nonlinearity</div>
                 <div className="value">
                   <div className="top">
                     {/* 结果分析计算的值 */}

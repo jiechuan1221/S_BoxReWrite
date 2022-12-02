@@ -135,7 +135,7 @@ export function Bic() {
           <div className="content-right">
             <div className="cnt-rgt-res">
               <div className="cnt-rgt-res-center">
-                <div className="head">Analysis of Bic</div>
+                <div className="head">BIC-Nonlinearity</div>
                 <div className="value">
                   <div className="top">
                     <div className="val-item">
