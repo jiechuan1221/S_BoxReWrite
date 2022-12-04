@@ -106,8 +106,13 @@
         span {
           color: rgb(255, 179, 0);
         }
+        .Img {
+          width: 53px;
+          margin-right: 10px;
+        }
       }
       .Exit {
+        position: relative;
         margin-left: 30px;
         letter-spacing: 2px;
       }
@@ -142,7 +147,6 @@
     // 中间标题和控件层
     .control {
       width: 100%;
-      height: 140px;
       @include flexBox();
       flex-direction: column;
       .title,
@@ -155,7 +159,6 @@
       .title {
         font-size: 15px;
         color: $mainColor;
-        height: 60%;
         padding: 16px 65px;
         letter-spacing: 1px;
         @include flexBox(flex-start, flex-start);
@@ -173,13 +176,15 @@
       }
       // 控件
       .controlElement {
+        height: 50px;
+
         @include flexBox();
         .cle-left,
         .cle-right {
           width: 35%;
           height: 100%;
           margin-left: 15px;
-          @include flexBox(space-around, center);
+          @include flexBox(space-around, flex-start);
           // 左边upload button的样式
           .ant-upload {
             @include flexBox(space-around, center);
@@ -189,11 +194,10 @@
           // 两边控件大小
           .scan-import1,
           .scan-import2,
-          .scan-import3,
-          .scan-import4 {
+          .scan-import3 {
             width: 42%;
-            height: 70%;
-            @include flexBox(space-around, center);
+            height: 80%;
+            @include flexBox(space-around, flex-start);
             .cle-left-btn,
             .cle-left-btn1 {
               width: 100%;
@@ -223,12 +227,16 @@
             margin-left: 15px;
           }
           .scan-import3 {
-            margin-left: 20px;
+            width: 90%;
+            margin-right: 7px;
           }
         }
         .cle-left {
-          @include flexBox(flex-start, center);
+          @include flexBox(flex-start, flex-start);
           margin-left: 29px;
+        }
+        .cle-right {
+          width: 18%;
         }
       }
     }

@@ -12,7 +12,7 @@ import FileList from "./fileList";
 import { Nonlinearity, Sac, Bic, SOB, Lp, Dp } from "../CalPage";
 import { btnClickExport } from "../../../utils/downLoadFile";
 import { downModuleTxt } from "../../../utils/downModuleTxt";
-import logo from "../../../utils/logo.png";
+import logo from "../../../static/s-box3.jpg";
 
 const nvgName = [
   "Nonlinearity",
@@ -171,7 +171,7 @@ export default function UploadAndShow() {
               <img
                 src={logo}
                 alt="S-Box"
-                style={{ width: "50px", marginRight: "10px" }}
+                className="Img"
               />
               <span>S-Box Performance Analysis</span>
             </div>
@@ -282,8 +282,7 @@ export default function UploadAndShow() {
 
               {/* 右边的下载计算结果按钮 */}
               <div className="cle-right">
-                <div className="scan-import3"></div>
-                <div className="scan-import4">
+                <div className="scan-import3">
                   <Button className="cle-left-btn" onClick={downResFile}>
                     Download Results
                   </Button>
@@ -332,7 +331,7 @@ export default function UploadAndShow() {
 
           {/* 底部说明文字 */}
           <div className="true-bottom">
-            <div className="b-top">About us: </div>
+            <div className="b-top">About us: </div> 
             <div className="b-bottom">
               This is a free online tool for evaluating 8 * 8 S-Box, which is
               designed by Dr. Yong Wang, Chongqing University of Posts and
@@ -343,7 +342,7 @@ export default function UploadAndShow() {
               If you have any problem when using it, feel free to contact
               me,&nbsp;
               <span className="email">wangyong1@cqupt.edu.cn</span> , or &nbsp;
-              <span className="email">wangyong_cqupt@163.com.</span>
+              <span className="email">wangyong_cqupt@163.com</span>.
             </div>
           </div>
         </div>
