@@ -12,7 +12,7 @@ import FileList from "./fileList";
 import { Nonlinearity, Sac, Bic, SOB, Lp, Dp } from "../CalPage";
 import { btnClickExport } from "../../../utils/downLoadFile";
 import { downModuleTxt } from "../../../utils/downModuleTxt";
-import logo from "../../../static/s-box3.jpg";
+import logo from "../../../static/s-box1.png";
 
 const nvgName = [
   "Nonlinearity",
@@ -168,11 +168,7 @@ export default function UploadAndShow() {
               className="showName"
               onClick={GoRightWay.bind(null, "content")}
             >
-              <img
-                src={logo}
-                alt="S-Box"
-                className="Img"
-              />
+              <img src={logo} alt="S-Box" className="Img" />
               <span>S-Box Performance Analysis</span>
             </div>
             <div className="Exit">
@@ -331,7 +327,7 @@ export default function UploadAndShow() {
 
           {/* 底部说明文字 */}
           <div className="true-bottom">
-            <div className="b-top">About us: </div> 
+            <div className="b-top">About us: </div>
             <div className="b-bottom">
               This is a free online tool for evaluating 8 * 8 S-Box, which is
               designed by Dr. Yong Wang, Chongqing University of Posts and

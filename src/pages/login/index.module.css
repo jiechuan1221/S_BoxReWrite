@@ -34,3 +34,10 @@
   font-size: 14px;
   text-align: center;
 }
+
+.login-select-form #explain{
+  width: 100%;
+  height: 30px;
+  background-color: #ec4646;
+  padding: 20px;
+}

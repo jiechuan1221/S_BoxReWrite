@@ -21,6 +21,33 @@ export function Sac() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (sac) {
+    let calArray = [];
+    if (sac !== "" && sac !== undefined) {
+      //先转为一维数组
+      (sac ? sac : calDefaultData.Bic).forEach((item) => {
+        calArray = [...calArray, ...item];
+      });
+      MinVal = calArray[0];
+      MaxVal = calArray[0];
+      calArray.forEach((val) => {
+        MaxVal = MaxVal > val ? MaxVal : val;
+        MinVal = MinVal > val ? val : MinVal;
+        AvgVal = AvgVal + val;
+      });
+      AvgVal = AvgVal / 56;
+      calArray.forEach((val) => {
+        Var = Var + Math.pow(val - AvgVal, 2);
+      });
+      Var = Var / 55;
+      Var = Math.sqrt(Var);
+      MaxVal = MaxVal.toFixed(5);
+      MinVal = MinVal.toFixed(5);
+      AvgVal = AvgVal.toFixed(5);
+      Var = Var.toFixed(5);
+    }
+  }
+
   // 头部小方块
   const HeaderItem = () => {
     return index[0].map((item) => {

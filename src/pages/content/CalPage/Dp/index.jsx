@@ -19,6 +19,20 @@ export function Dp() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (dp) {
+    let calArray = [];
+    if (dp !== "" && dp !== undefined) {
+      //先转为一维数组
+      (dp ? dp : calDefaultData.Bic).forEach((item) => {
+        calArray = [...calArray, ...item];
+      });
+      MaxVal = calArray[0];
+      calArray.forEach((val) => {
+        MaxVal = MaxVal < val ? val : MaxVal;
+      });
+    }
+  }
+
   //   生成头部的小方块
   const HeadItem = () => {
     return index[0].map((item) => {
@@ -33,16 +47,7 @@ export function Dp() {
       );
     });
   };
-  //   生成表格左边的坐标
-  const ContentIndexItem = () => {
-    return index[1].map((item) => {
-      return (
-        <div className="tab-con-indexItem" key={item}>
-          {item}
-        </div>
-      );
-    });
-  };
+
   //   生成表格具体内容
   const RowItemCol = ({ data }) => {
     let key = 0;

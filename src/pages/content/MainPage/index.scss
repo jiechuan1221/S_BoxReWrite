@@ -101,13 +101,15 @@
         font-size: 22px;
         cursor: pointer;
         @include flexBox(center, center);
-        // flex-direction: column;
         font-style: italic;
         span {
           color: rgb(255, 179, 0);
         }
         .Img {
           width: 53px;
+          height: 50px;
+          background-color: rgba(73, 115, 146, 0.4);
+          border-radius: 1px;
           margin-right: 10px;
         }
       }

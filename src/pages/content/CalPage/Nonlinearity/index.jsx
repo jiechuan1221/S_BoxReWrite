@@ -5,10 +5,9 @@ import "./index.scss";
 import calDefaultData from "../../../../static/calRes.json";
 // import { btnClickExport } from "../../../../utils/downLoadFile";
 
-export function Nonlinearity() {
+export function Nonlinearity() { 
   const [Nlr, setNlr] = useState(null);
   const nlr = JSON.parse(sessionStorage.getItem("mainPage_fileData"));
-  const [NlrStatus, setNlrStatus] = useState(false);
   const index = calDefaultData["B&SIndex"];
   // 计算的一些结果数据
   let MaxVal = 0;
@@ -18,8 +17,6 @@ export function Nonlinearity() {
   useEffect(() => {
     if (nlr) {
       setNlr([[...nlr.nonlinearity], ...calDefaultData.Non]);
-    } else {
-      setNlrStatus(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -27,8 +24,8 @@ export function Nonlinearity() {
   // 接收到数据之后开始计算
   if (nlr) {
     let calArray = nlr.nonlinearity;
-    MaxVal = nlr[0];
-    MinVal = nlr[0];
+    MaxVal = calArray[0];
+    MinVal = calArray[0];
     calArray.forEach((val) => {
       MaxVal = MaxVal < val ? val : MaxVal;
       MinVal = MinVal > val ? val : MinVal;

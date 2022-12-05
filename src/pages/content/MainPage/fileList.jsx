@@ -10,7 +10,6 @@ export default function FileList(props) {
   const setIsComming = props.setIsComming;
   const [totalPage, setTotalPage] = useState(5);
   const [fileData, setFileData] = useState(null);
-  const [calDataStatus, setCalDataStatus] = useState(false);
   const [curPage, setCurPage] = useState(1);
   // 获取缓存在本地的文件列表数据
   const time = props.time;
@@ -46,6 +45,13 @@ export default function FileList(props) {
   };
   // 删除指定的文件
   const onConfirm = (item) => {
+    const calFileId = sessionStorage.getItem("mainPage_listId");
+    if (JSON.stringify(item.id) === calFileId) {
+      message.warn(
+        "The current file is being calculated and cannot be deleted !"
+      );
+      return;
+    }
     const pageId = localStorage.getItem("fileList_pageId");
     httpUtill.deleteSingleFileData(item.id).then((res) => {
       if (res.data) {
@@ -83,7 +89,6 @@ export default function FileList(props) {
     // 如果进行新的计算的文件和上一次计算的文件相同，则直接使用之前的数据
     if (item.id === parseInt(sessionStorage.getItem("mainPage_listId"))) {
       if (sessionStorage.getItem("mainPage_fileData") !== "null") {
-        setCalDataStatus(true);
         return;
       }
     }
@@ -107,7 +112,6 @@ export default function FileList(props) {
         sessionStorage.setItem("mainPage_fileData", data);
       })
       .finally(() => {
-        setCalDataStatus(true);
         setDownCal(true);
       });
   };

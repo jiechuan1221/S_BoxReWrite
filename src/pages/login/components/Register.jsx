@@ -13,6 +13,7 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const [logFlag, setLogFlag] = useState(false);
   const emailRef = useRef();
+
   // 按下登录按键之后
   const onFinish = (values) => {
     setLoading(true);
@@ -57,7 +58,7 @@ export const Register = () => {
 
   return (
     <Form
-      name="normal_login"
+      name="normal_login" 
       className="login-form"
       initialValues={{
         remember: true,
@@ -257,6 +258,8 @@ export const Register = () => {
           Register
         </Button>
       </Form.Item>
+
+      
     </Form>
   );
 };

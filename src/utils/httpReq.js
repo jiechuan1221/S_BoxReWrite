@@ -45,6 +45,7 @@ export const httpReq = (method, url, data, headerMsg) => {
             sessionStorage.removeItem("mainPage_fileData")
             sessionStorage.removeItem("mainPage_fileName")
             sessionStorage.removeItem("mainPage_resArray")
+            sessionStorage.removeItem("mainPage_listId")
             message.success(`Welcome back next time ~`)
             setTimeout(() => {
               window.location.href = '/'

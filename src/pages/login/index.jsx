@@ -13,7 +13,7 @@ export default function Login() {
           className={styles["login-select-form"]}
           defaultActiveKey="1"
           centered={true}
-          tabBarGutter={39} 
+          tabBarGutter={39}
           items={[
             {
               label: `Log In by Password`,
@@ -35,6 +35,8 @@ export default function Login() {
             },
           ]}
         />
+
+       
         <BG />
       </div>
     </div>

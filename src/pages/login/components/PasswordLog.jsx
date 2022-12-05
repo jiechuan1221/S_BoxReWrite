@@ -54,7 +54,6 @@ export const User = () => {
             placeholder="email"
           />
         </Form.Item>
-
         <Form.Item
           name="password"
           rules={[
@@ -70,7 +69,6 @@ export const User = () => {
             placeholder="password"
           />
         </Form.Item>
-
         <Form.Item>
           <Button
             type="primary"
@@ -80,13 +78,40 @@ export const User = () => {
             Login
           </Button>
         </Form.Item>
-
         <Form.Item>
           <Form.Item valuePropName="changePassword" noStyle>
             <Link to="/Login/find">Forgot password &gt;</Link>
           </Form.Item>
         </Form.Item>
       </Form>
+      <div
+        id="split"
+        style={{
+          position: "absolute",
+          top: "230px",
+          left: "0px",
+          borderTop: "1px solid rgba(128, 128, 128, 0.2)",
+          marginLeft: "4px",
+          width: "98%",
+        }}
+      ></div>
+      <div
+        id="explain"
+        className="explain"
+        style={{
+          position: "absolute",
+          top: "230px",
+          left: "0px",
+          margin: "0px 0 20px",
+          padding: "10px 25px 0px",
+          color: "rgb(68, 68, 68, 0.9)",
+        }}
+      >
+        This is a free online tool for evaluating 8 * 8 S-Box, which is designed
+        by Dr. YongWang, Chongqing University of Posts and Telecommunications,
+        Chong qing, 400065, China. Email: wangyong1@cqupt.edu.c n or wangyong_
+        cqupt@163.com.
+      </div>
     </Fragment>
   );
 };

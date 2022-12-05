@@ -6,7 +6,6 @@ import calDefaultData from "../../../../static/calRes.json";
 
 export function SOB() {
   const [SOB, setSOB] = useState(null);
-  const [SOBStatus, setSobStatus] = useState(false);
   const index = calDefaultData["B&SIndex"];
   // 计算的一些结果数据
   let MinVal = 0;
@@ -20,6 +19,36 @@ export function SOB() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (SOB) {
+    let calArray = [];
+    if (SOB !== "" && SOB !== undefined) {
+      //先转为一维数组
+      (SOB ? SOB : calDefaultData.Bic).forEach((item) => {
+        calArray = [...calArray, ...item];
+      });
+      MinVal = calArray[1];
+      calArray.forEach((val) => {
+        if (val === 0) {
+          return;
+        }
+        MinVal = MinVal > val ? val : MinVal;
+        AvgVal = AvgVal + val;
+      });
+      AvgVal = AvgVal / 56;
+      calArray.forEach((val) => {
+        if (val === 0) {
+          return;
+        }
+        Var = Var + Math.pow(val - AvgVal, 2);
+      });
+      Var = Var / 55;
+      Var = Math.sqrt(Var);
+      MinVal = MinVal.toFixed(5);
+      AvgVal = AvgVal.toFixed(5);
+      Var = Var.toFixed(5);
+    }
+  }
 
   // 头部小方块
   const HeaderItem = () => {
@@ -36,15 +65,16 @@ export function SOB() {
   const DetailItemCol = (data) => {
     return data.data.map((item) => {
       let key = Math.random() * 10;
-      let value = 0;
-      if (item !== " ") {
-        value = item.toFixed(6);
-      } else {
-        value = item;
+      if (item !== " " && SOB) {
+        if (item !== 0) {
+          item = item.toFixed(6);
+        } else {
+          item = "---";
+        }
       }
       return (
         <div className="detailItem" key={key} tabIndex={item}>
-          {value}
+          {item}
         </div>
       );
     });

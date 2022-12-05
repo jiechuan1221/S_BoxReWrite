@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, Suspense, lazy } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 // 自己组件引入
 import "./index.scss";
@@ -6,7 +6,6 @@ import calDefaultData from "../../../../static/calRes.json";
 import RowItem from "./RowItem";
 
 export function Lp(props) {
-  const isComming = props.isComming;
   const [lp, setLp] = useState(null);
   const index = calDefaultData["LpIndex"];
   // 计算的一些结果数据

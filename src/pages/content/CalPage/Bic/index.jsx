@@ -6,7 +6,6 @@ import calDefaultData from "../../../../static/calRes.json";
 
 export function Bic() {
   const [bic, setBic] = useState(null);
-  const [bicStatus, setBicStatus] = useState(false);
   const index = calDefaultData["B&SIndex"];
   // 计算的一些结果数据
   let MinVal = 0;
@@ -60,20 +59,15 @@ export function Bic() {
       );
     });
   };
-  // 右边index小方块
-  const RightIndexItem = () => {
-    return index[1].map((item) => {
-      return (
-        <div className="rightItem" key={`${item}`}>
-          {item}
-        </div>
-      );
-    });
-  };
   // 获取具体小方块
   const DetailItemCol = (data) => {
     return data.data.map((item) => {
       let key = Math.random() * 10;
+      if (item !== " " && bic) {
+        if (item === 0) {
+          item = "---";
+        }
+      }
       return (
         <div className="detailItem" key={key} tabIndex={item}>
           {item}
