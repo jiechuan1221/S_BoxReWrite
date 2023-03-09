@@ -37,6 +37,7 @@ export default function UploadAndShow() {
 
   // 用于判断是否登录
   useEffect(() => {
+    localStorage.setItem("fileList_pageId", 1);
     // 获取登录状态
     httpUtill.getRegisterStatus().then((res) => {
       if (res.data) {
