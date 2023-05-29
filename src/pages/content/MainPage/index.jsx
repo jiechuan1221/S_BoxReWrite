@@ -195,7 +195,7 @@ export default function UploadAndShow() {
               User Data
               <div className="user_detail">
                 <Table
-                  dataSource={[]}
+                  dataSource={data.data}
                   columns={user_data_cols}
                   scroll={{ x: "1800px" }}
                 />
@@ -205,7 +205,7 @@ export default function UploadAndShow() {
               User Msg
               <div className="user_detail">
                 <Table
-                  dataSource={[]}
+                  dataSource={data2.data}
                   columns={check_data_cols}
                   scroll={{ x: "1200px" }}
                 />
