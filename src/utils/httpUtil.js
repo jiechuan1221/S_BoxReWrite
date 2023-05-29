@@ -31,4 +31,6 @@ export default class httpUtill {
     static deleteSingleFileData = (id) => httpReq('delete', `/data/${id}`, '')
     // 根据id查询对应文件计算结果
     static getSingleFileRes = (id) => httpReq("get", `/data/${id}`, "", { "Content-Type": "application/x-www-form-urlencoded" })
+    // 管理员查看列表
+    static getCheckUser = (data) => httpReq("post", `/admin/checkUser`, { "Content-Type": "application/x-www-form-urlencoded" }) 
 }

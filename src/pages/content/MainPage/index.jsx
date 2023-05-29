@@ -1,18 +1,21 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { Divider, Button, Upload, message, Spin, Space } from "antd";
+import { Divider, Button, Upload, message, Spin, Space, Table } from "antd";
 import { StarOutlined, UploadOutlined } from "@ant-design/icons";
 import cookies from "react-cookies";
 
 // 自己的组件
 import httpUtill from "../../../utils/httpUtil";
 import "./index.scss";
-import Table from "./table";
+import MyTable from "./table";
 import FileList from "./fileList";
 import { Nonlinearity, Sac, Bic, SOB, Lp, Dp } from "../CalPage";
 import { btnClickExport } from "../../../utils/downLoadFile";
 import { downModuleTxt } from "../../../utils/downModuleTxt";
+import { check_data_cols, user_data_cols } from "./tableColumn";
 import logo from "../../../static/s-box1.png";
+import data from "./test.json";
+import data2 from "./test2.json"
 
 const nvgName = [
   "Nonlinearity",
@@ -45,6 +48,9 @@ export default function UploadAndShow() {
         setUser(res.data.firstName + res.data.lastName);
       }
     });
+    // httpUtill.getCheckUser().then(res => {
+    //   console.log(res);
+    // })
   }, []);
 
   // 用于判断上传文件状态
@@ -185,6 +191,26 @@ export default function UploadAndShow() {
             </div>
           </div>
           <div className="h-right">
+            <div className="item user">
+              User Data
+              <div className="user_detail">
+                <Table
+                  dataSource={[]}
+                  columns={user_data_cols}
+                  scroll={{ x: "1800px" }}
+                />
+              </div>
+            </div>
+            <div className="item user">
+              User Msg
+              <div className="user_detail">
+                <Table
+                  dataSource={[]}
+                  columns={check_data_cols}
+                  scroll={{ x: "1200px" }}
+                />
+              </div>
+            </div>
             {nvgName.map((item) => {
               if (item === "LP") {
                 return (
@@ -292,7 +318,7 @@ export default function UploadAndShow() {
 
           {/* 展示表格 */}
           <div className="c-bottom">
-            <div className="content-left">{<Table data={resArray} />}</div>
+            <div className="content-left">{<MyTable data={resArray} />}</div>
             <div className="content-right">
               {
                 <FileList

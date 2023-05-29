@@ -68,7 +68,7 @@
     height: 85px;
     min-width: 1200px;
     position: fixed;
-    overflow: auto;
+    // overflow: auto;
     z-index: 20;
     font-size: large;
     @include flexBox();
@@ -136,6 +136,50 @@
         cursor: pointer;
         background-color: $selectBgc;
         border-radius: 4px;
+      }
+
+      // .virtrual {
+      //   padding-top: 10px;
+      // }
+
+      .user {
+        position: relative;
+      }
+      .user .user_detail {
+        display: none;
+        position: absolute;
+        width: 1200px;
+        max-height: 500px;
+        overflow: auto;
+        top: 48px;
+        z-index: 99;
+        background-color: white;
+        border: #237d65 1px solid;
+        border-radius: 4px;
+        padding: 10px;
+        box-shadow: 0 10px 10px rgb(209, 209, 209);
+      }
+      .user:hover .user_detail {
+        display: block;
+        cursor: auto;
+      }
+
+      // 设置滚动条样式
+      /* 滚动条里面小方块 */
+      ::-webkit-scrollbar-thumb {
+        background: rgb(197, 197, 197) !important;
+      }
+      /* 滚动条里面轨道 */
+      ::-webkit-scrollbar-track {
+        background: rgb(239, 239, 239);
+      }
+
+      .user_col_style {
+        min-width: 120px;
+        flex-shrink: 0;
+      }
+      .organization {
+        width: 250px;
       }
     }
   }
